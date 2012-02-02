@@ -1,0 +1,48 @@
+#!/system/bin/sh
+
+# lowmem tweaks by squadzone
+# DO NOT CHANGE
+
+if [ -e /data/property/persist.sys.lowmem ]
+        then
+	lowt=`cat /data/property/persist.sys.lowmem`
+	if [ "$lowt" = "1" ]; then
+  if [ -e /sys/module/lowmemorykiller/parameters/minfree ]; then
+    echo "2560,4096,6144,10240,11264,12288" > /sys/module/lowmemorykiller/parameters/minfree
+  fi  
+        fi
+        if [ "$lowt" = "2" ]; then
+  if [ -e /sys/module/lowmemorykiller/parameters/minfree ]; then
+    echo "2560,4096,6144,11264,11776,14336" > /sys/module/lowmemorykiller/parameters/minfree
+  fi
+        fi
+	if [ "$lowt" = "3" ]; then
+  if [ -e /sys/module/lowmemorykiller/parameters/minfree ]; then
+    echo "2560,4096,6144,11776,12288,16384" > /sys/module/lowmemorykiller/parameters/minfree
+  fi
+	fi
+	if [ "$lowt" = "4" ]; then
+  if [ -e /sys/module/lowmemorykiller/parameters/minfree ]; then
+    echo "2560,4096,6144,10752,11264,13312" > /sys/module/lowmemorykiller/parameters/minfree
+  fi
+	fi
+	if [ "$lowt" = "5" ]; then
+  if [ -e /sys/module/lowmemorykiller/parameters/minfree ]; then
+    echo "2560,4096,6144,7680,8704,10240" > /sys/module/lowmemorykiller/parameters/minfree
+  fi
+	fi
+	if [ "$lowt" = "6" ]; then
+  if [ -e /sys/module/lowmemorykiller/parameters/minfree ]; then
+    echo "2560,4096,6144,18944,22016,23552" > /sys/module/lowmemorykiller/parameters/minfree
+  fi
+	fi
+fi
+
+if [ -e /data/property/persist.sys.ioscheduler ]
+  then
+       ios=`cat /data/property/persist.sys.ioscheduler`
+       echo $ios > /sys/block/mmcblk0/queue/scheduler
+       echo $ios > /sys/block/stl14/queue/scheduler
+       echo $ios > /sys/block/stl13/queue/scheduler
+       echo $ios > /sys/block/stl12/queue/scheduler
+fi

@@ -1,0 +1,12 @@
+#!/system/bin/sh
+rm /system/etc/sysctl.conf
+if [ -e /data/property/persist.sys.swappiness ];
+  then
+	swapvalue=`getprop persist.sys.swappiness`
+	echo "vm.swappiness=$swapvalue" > /system/etc/sysctl.conf
+   echo "$swapvalue" > /proc/sys/vm/swappiness
+else
+	echo "vm.swappiness=10" > /system/etc/sysctl.conf
+fi
+
+chmod 644 /system/etc/sysctl.conf
